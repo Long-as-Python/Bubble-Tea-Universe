@@ -2,29 +2,26 @@ using UnityEngine;
 
 public class UIControls : MonoBehaviour
 {
-    public PlayerController2D playerController; // Посилання на PlayerController
+    public MapController mapController;
+    public PlayerController2D playerController2D;
 
-    // Метод викликається кнопкою "←"
     public void MoveLeft()
     {
-        playerController.SetHorizontalInput(-1f);
+        mapController.SetMoveSpeed(-30f); // Рух вліво
     }
 
-    // Метод викликається кнопкою "→"
     public void MoveRight()
     {
-        playerController.SetHorizontalInput(1f);
+        mapController.SetMoveSpeed(30f); // Рух вправо
     }
 
-    // Метод викликається при відпусканні кнопки
     public void StopMovement()
     {
-        playerController.SetHorizontalInput(0f);
+        mapController.StopSegments(); // Зупиняємо рух
     }
 
-    // Метод викликається кнопкою "⬆"
     public void Jump()
     {
-        playerController.Jump();
+        playerController2D.Jump();
     }
 }

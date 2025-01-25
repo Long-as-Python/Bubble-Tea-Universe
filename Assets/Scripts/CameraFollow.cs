@@ -2,22 +2,25 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target; // Ціль (гравець)
+    public Transform player; // Гравець
     public float smoothSpeed = 0.125f; // Швидкість плавного слідування
-    public Vector3 offset; // Відступ камери
+    public Vector3 offset; // Відступ камери від гравця
+    public float lookAheadDistance = 2f; // Дистанція випередження камери в напрямку руху
+
+    private Vector3 velocity = Vector3.zero;
 
     void LateUpdate()
     {
-        // Розрахунок нової позиції камери
-        Vector3 desiredPosition = target.position + offset;
+        // Отримуємо напрямок руху гравця
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Vector3 lookAhead = Vector3.right * horizontalInput * lookAheadDistance;
 
-        // Плавний перехід до бажаної позиції
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        // Визначаємо бажану позицію камери
+        Vector3 desiredPosition = player.position + offset + lookAhead;
 
-        // Фіксуємо Z-позицію для 2D
-        smoothedPosition.z = transform.position.z;
-
-        // Застосовуємо нову позицію
+        // Згладжуємо рух камери
+        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
+        smoothedPosition.z = transform.position.z; // Фіксуємо Z-позицію для 2D
         transform.position = smoothedPosition;
     }
 }
