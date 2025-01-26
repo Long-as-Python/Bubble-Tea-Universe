@@ -8,11 +8,11 @@ public class CameraFollow : MonoBehaviour
     public float lookAheadDistance = 2f; // Дистанція випередження камери в напрямку руху
 
     private Vector3 velocity = Vector3.zero;
+    private float horizontalInput = 0f; // Напрямок руху
 
     void LateUpdate()
     {
         // Отримуємо напрямок руху гравця
-        float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 lookAhead = Vector3.right * horizontalInput * lookAheadDistance;
 
         // Визначаємо бажану позицію камери
@@ -23,4 +23,10 @@ public class CameraFollow : MonoBehaviour
         smoothedPosition.z = transform.position.z; // Фіксуємо Z-позицію для 2D
         transform.position = smoothedPosition;
     }
+    
+    public void SetHorizontalInput(float input)
+    {
+        horizontalInput = input;
+    }
+
 }

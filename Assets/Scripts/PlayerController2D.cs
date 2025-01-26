@@ -13,9 +13,12 @@ public class PlayerController2D : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
-    public List<IngredientType> inventory = new List<IngredientType>();// Список зібраних інгредієнтів
+    public List<IngredientType> inventory = new List<IngredientType>(); // Список зібраних інгредієнтів
     public UIInventory uiInventory;
-    
+
+    public CameraFollow cameraFollow;
+    private float horizontalInput = 0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,23 +33,34 @@ public class PlayerController2D : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
+            SetHorizontalInput(-1f);
+
             mapController.SetMoveSpeed(-30f); // Рух ліворуч
-            SetAnimationSpeed(1f); 
-            SetFlipDirection(true); 
+            SetAnimationSpeed(1f);
+            SetFlipDirection(true);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
+            SetHorizontalInput(1f);
+
             mapController.SetMoveSpeed(30f); // Рух праворуч
-            SetAnimationSpeed(1f); 
-            SetFlipDirection(false); 
+            SetAnimationSpeed(1f);
+            SetFlipDirection(false);
         }
 
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
+            SetHorizontalInput(0f);
             SetAnimationSpeed(0f);
             mapController.StopSegments(); // Зупиняємо рух
         }
+    }
+
+    public void SetHorizontalInput(float input)
+    {
+        horizontalInput = input;
+        cameraFollow.SetHorizontalInput(horizontalInput);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -56,7 +70,7 @@ public class PlayerController2D : MonoBehaviour
             isJumping = false;
         }
     }
-    
+
     public void SetAnimationSpeed(float speed)
     {
         animator.SetFloat("Speed", speed);
@@ -75,13 +89,13 @@ public class PlayerController2D : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
-    
+
     public void CollectIngredient(IngredientType ingredient)
     {
         inventory.Add(ingredient);
         uiInventory.UpdateInventory(inventory); // Оновлюємо UI
     }
-    
+
     public bool CheckRecipe(Order order, List<IngredientType> selectedIngredients)
     {
         if (order.ingredients.Count != selectedIngredients.Count) return false;
@@ -93,6 +107,7 @@ public class PlayerController2D : MonoBehaviour
                 return false;
             }
         }
+
         return true;
     }
 }

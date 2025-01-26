@@ -360,7 +360,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Ui_buttons_shit (2)_0: -1528719620905416779
+      Ui_buttons_shit (2)_1: 5721664495619508585
+      Ui_buttons_shit (2)_2: 6100853308117442498
+      Ui_buttons_shit (2)_3: 3118250241861540214
+      Ui_buttons_shit (2)_4: 1603162835722493849
+      Ui_buttons_shit (2)_5: -6134559788392634565
+      Ui_buttons_shit (2)_6: 4739355692855702230
+      Ui_buttons_shit (2)_7: -4386056324915685726
+      Ui_buttons_shit (2)_8: 3642689303683623481
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
