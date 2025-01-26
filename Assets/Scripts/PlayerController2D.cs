@@ -1,5 +1,6 @@
 using System;
 using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController2D : MonoBehaviour
@@ -11,6 +12,9 @@ public class PlayerController2D : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     [SerializeField] private bool isJumping = false;
 
+    public List<string> inventory = new List<string>(); // Список зібраних інгредієнтів
+    public TMPro.TextMeshProUGUI inventoryText;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -66,5 +70,16 @@ public class PlayerController2D : MonoBehaviour
             isJumping = true;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
+    }
+    
+    public void CollectIngredient(string ingredient)
+    {
+        inventory.Add(ingredient);
+        UpdateInventoryUI();
+    }
+
+    private void UpdateInventoryUI()
+    {
+        inventoryText.text = $"Інвентар:\n{string.Join("\n", inventory)}";
     }
 }
