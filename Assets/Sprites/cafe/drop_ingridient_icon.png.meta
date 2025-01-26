@@ -129,12 +129,12 @@ TextureImporter:
       name: drop_ingridient_icon_0
       rect:
         serializedVersion: 2
-        x: 14
+        x: 9
         y: 17
-        width: 24
+        width: 37
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7d4ad1909b473cb409e449be827855e5
     internalID: 0
     vertices: []
     indices: 
@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      drop_ingridient_icon_0: 813476044120597237
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Ingredient : MonoBehaviour, ICollectable
 {
-    public string ingredientType; // Тип інгредієнта (наприклад, "Чай", "Перлини")
+    public IngredientType ingredientType; // Тип інгредієнта
 
     public void Collect()
     {
         PlayerController2D player = FindObjectOfType<PlayerController2D>();
         player.CollectIngredient(ingredientType);
-        Destroy(gameObject); // Видаляємо інгредієнт після підбору
+        Destroy(gameObject); // Видаляємо інгредієнт після збору
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,7 +23,7 @@ public class Ingredient : MonoBehaviour, ICollectable
     {
         if (other.CompareTag("Player"))
         {
-            UIManager.Instance.HidePickupButton(); // Ховаємо кнопку, коли гравець відходить
+            UIManager.Instance.HidePickupButton(); // Ховаємо кнопку
         }
     }
 }

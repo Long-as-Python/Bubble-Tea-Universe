@@ -8,12 +8,13 @@ public class PlayerController2D : MonoBehaviour
     public float jumpForce = 5f;
     private Rigidbody2D rb;
     public MapController mapController;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
     [SerializeField] private bool isJumping = false;
 
-    public List<string> inventory = new List<string>(); // Список зібраних інгредієнтів
-    public TMPro.TextMeshProUGUI inventoryText;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+
+    public List<IngredientType> inventory = new List<IngredientType>();// Список зібраних інгредієнтів
+    public UIInventory uiInventory;
     
     void Start()
     {
@@ -22,18 +23,6 @@ public class PlayerController2D : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
-        
-        if (horizontalInput > 0)
-        {
-            spriteRenderer.flipX = false; // Гравець дивиться вправо
-        }
-        else if (horizontalInput < 0)
-        {
-            spriteRenderer.flipX = true; // Гравець дивиться вліво
-        }
-        
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             Jump();
@@ -42,15 +31,20 @@ public class PlayerController2D : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             mapController.SetMoveSpeed(-30f); // Рух ліворуч
+            SetAnimationSpeed(1f); 
+            SetFlipDirection(true); 
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             mapController.SetMoveSpeed(30f); // Рух праворуч
+            SetAnimationSpeed(1f); 
+            SetFlipDirection(false); 
         }
 
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
+            SetAnimationSpeed(0f);
             mapController.StopSegments(); // Зупиняємо рух
         }
     }
@@ -62,6 +56,16 @@ public class PlayerController2D : MonoBehaviour
             isJumping = false;
         }
     }
+    
+    public void SetAnimationSpeed(float speed)
+    {
+        animator.SetFloat("Speed", speed);
+    }
+
+    public void SetFlipDirection(bool isFlipped)
+    {
+        spriteRenderer.flipX = isFlipped;
+    }
 
     public void Jump()
     {
@@ -72,14 +76,23 @@ public class PlayerController2D : MonoBehaviour
         }
     }
     
-    public void CollectIngredient(string ingredient)
+    public void CollectIngredient(IngredientType ingredient)
     {
         inventory.Add(ingredient);
-        UpdateInventoryUI();
+        uiInventory.UpdateInventory(inventory); // Оновлюємо UI
     }
-
-    private void UpdateInventoryUI()
+    
+    public bool CheckRecipe(Order order, List<IngredientType> selectedIngredients)
     {
-        inventoryText.text = $"Інвентар:\n{string.Join("\n", inventory)}";
+        if (order.ingredients.Count != selectedIngredients.Count) return false;
+
+        for (int i = 0; i < order.ingredients.Count; i++)
+        {
+            if (order.ingredients[i] != selectedIngredients[i])
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

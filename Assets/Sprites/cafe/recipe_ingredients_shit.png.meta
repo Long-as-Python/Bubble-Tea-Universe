@@ -260,7 +260,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      recipe_ingredients_shit_0: -7321790264329275297
+      recipe_ingredients_shit_1: -801611366397891126
+      recipe_ingredients_shit_2: -4441800691809206887
+      recipe_ingredients_shit_3: -8277967656938470550
+      recipe_ingredients_shit_4: 682253378696512113
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

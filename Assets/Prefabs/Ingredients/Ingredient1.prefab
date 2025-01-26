@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a18b08a775d02b418bccf86a12cad94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientType: Peach
+  ingredientType: 0
 --- !u!58 &4857068957647157702
 CircleCollider2D:
   m_ObjectHideFlags: 0
